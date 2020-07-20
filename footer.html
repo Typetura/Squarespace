@@ -1,0 +1,46 @@
+<!-- TYPETURA -->
+<script>
+  // Translate Squarespace typography to use Typetura classes.
+  function ttSquarespace() {
+    var typetura_primaryHeadline = document.querySelectorAll(["h1"]);
+    var typetura_primarySubheadline = document.querySelectorAll(["h1 + h2", ".site-description"]);
+    var typetura_secondaryHeadline = document.querySelectorAll(["h2", ".summary-title"]);
+    var typetura_secondarySubheadline = document.querySelectorAll(["h3", "h4", "h5", "h6"]);
+    var typetura_meta = document.querySelectorAll([".summary-metadata-container"]);
+
+    typetura_meta.forEach(function(e) {
+      e.classList.add("meta");
+    });
+    typetura_secondaryHeadline.forEach(function(e) {
+      e.classList.add("section-headline");
+    });
+    typetura_secondarySubheadline.forEach(function(e) {
+      e.classList.add("section-subheadline");
+    });
+    typetura_primaryHeadline.forEach(function(e) {
+      e.classList.add("primary-headline");
+    });
+    typetura_primarySubheadline.forEach(function(e) {
+      e.classList.remove("secondary-headline");
+      e.classList.add("primary-subheadline");
+    });
+  } ttSquarespace();
+
+  // Disable Typetura in edit mode.
+  function disableTypetura() {
+    if (document.getElementById('typeturaScript')) {
+      var disableTypeturaCSS = document.createElement('style');
+      disableTypeturaCSS.innerHTML = "*, :before, :after { animation: none !important}";
+      document.head.appendChild(disableTypeturaCSS);
+      document.getElementById('typeturaCustomStyle').remove();
+      document.getElementById('typeturaStylesheet').remove();
+      document.getElementById('typeturaScript').remove();
+    }
+  }
+  window.addEventListener('resize', function() {
+    if (document.body.classList.contains('sqs-edit-mode-active') && !document.body.classList.contains('typetura-disabled')) {
+      document.body.classList.add('typetura-disabled');
+      disableTypetura();
+    }
+  });
+</script>
